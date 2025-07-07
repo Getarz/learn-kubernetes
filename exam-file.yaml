@@ -1,0 +1,12 @@
+apiVersion: v1 # Kubernetes api version
+kind: Pod # Kubernetes resource -> Pod, Service
+metadata: # Pod metadata
+  name: my-pod # Pod name
+  labels: # Pod labels
+    app: my-app # Label key: value
+spec: # Pod spec configuration
+  containers: # Pod containers
+    - name: my-container # Container name
+      image: nginx # Container image
+      ports: # Container ports
+        - containerPort: 80 # Container port
