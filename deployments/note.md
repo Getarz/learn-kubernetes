@@ -55,3 +55,16 @@ kubectl annotate deployment nginx-deployment 'kubernetes.io/change-cause'='updat
 ```bash
 kubectl scale deployment nginx-deployment --replicas=3
 ```
+
+# Deploy Step
+
+1. kubectl diff -f <file_name>
+2. kubectl apply -f <file_name>
+3. kubectl get deployment <name>
+
+## Failed deployment debug
+
+1. kubectl get deployment <name> เพื่อหาว่ามี pod fail ไหม
+2. kubectl describe deployment <name> เพื่อเช็คว่ามี failed ที่ pod ไหน
+3. kubectl describe pod <name> เพื่อเช็คว่า fail state ไหนเพราะอะไร
+4. kubectl rollout undo deployment <name> ให้ทำการ rollback กลับมาก่อนแล้วค่อยแก้ไขข้อผิดพลาด แล้วเริ่มทำจาก deployment ขั้นตอนที่ 1 ใหม่
