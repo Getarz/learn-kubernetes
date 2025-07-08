@@ -25,3 +25,25 @@ kubectl get deploy
 ```bash
 kubectl describe deployment nginx
 ```
+
+## rollout
+
+ดู history deployment
+
+```bash
+kubectl rollout history deployment nginx-deployment
+```
+
+ย้อนกลับ version deployment ก่อนหน้า
+
+```bash
+kubectl rollout undo deployment nginx-deployment
+```
+
+## annotate
+
+สร้าง description ใหเ deployment
+
+```bash
+kubectl annotate deployment nginx-deployment 'kubernetes.io/change-cause'='updated nginx deployment to version 1.27.1-alpine'
+```
