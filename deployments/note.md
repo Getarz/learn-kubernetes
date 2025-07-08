@@ -47,3 +47,11 @@ kubectl rollout undo deployment nginx-deployment
 ```bash
 kubectl annotate deployment nginx-deployment 'kubernetes.io/change-cause'='updated nginx deployment to version 1.27.1-alpine'
 ```
+
+## scale
+
+เพิ่มหรือลด resource แต่เป็นแบบชั่วคราว ถ้ามีการ apply ใหม่มันจะอีปเดตค่าจากไฟล์แทน
+
+```bash
+kubectl scale deployment nginx-deployment --replicas=3
+```
