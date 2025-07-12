@@ -12,8 +12,20 @@ Get config view
 kubectl config view
 ```
 
-Get all namespace
+Get all namespace (use namespace or ns)
+
+```bash
+kubectl get namespace --all-namespace
+```
+
+Get resource all namespace
 
 ```bash
 kubectl get <resource> --all-namespace
+```
+
+Get multiple resource
+
+```bash
+kubectl get pod,svc,ns
 ```

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: traffic-generator
+  labels:
+    app: traffic-generator
+spec:
+  containers:
+    - name: traffic-generator
+      image: lmacademy/traffic-generator:1.0.0
+      args:
+        # ในกรณีของการใช้งานร่วมกันต่าง namespace จะต้องระบุ DNS ให้ถูกต้อง
+        # Exp. <service-name>.<namespace>,svc,cluster.local
+        - 'color-api-svc.dev.svc.cluster.local/api'
+        - '1'
