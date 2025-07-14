@@ -7,19 +7,27 @@ metadata:
 spec:
   containers:
     - name: color-api-prod
-      image: lmacademy/color-api:1.2.0
+      image: lmacademy/color-api:1.2.1
       ports:
         - containerPort: 80
       env:
         - name: DELAY_STARTUP
           value: 'false'
+        - name: FAIL_LIVENESS
+          value: 'true'
       resources:
         limits:
           cpu: '1'
           memory: '1Gi'
       startupProbe:
         httpGet:
+          path: /up
+          port: 80
+        failureThreshold: 2
+        periodSeconds: 5
+      livenessProbe:
+        httpGet:
           path: /health
           port: 80
         failureThreshold: 3
-        periodSeconds: 5
+        periodSeconds: 10
