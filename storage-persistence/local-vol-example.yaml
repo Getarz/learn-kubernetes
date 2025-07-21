@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-volume
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /mnt/disk/local1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values: [minikube]
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-volume-claim
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: local-volume-pod
+  labels:
+    app: local-volume-pod
+spec:
+  containers:
+    - image: busybox:1.36.1
+      name: local-volume
+      resources:
+        requests:
+          memory: '64Mi'
+          cpu: '250m'
+      volumeMounts:
+        - name: local-volume
+          mountPath: /mnt/local
+  volumes:
+    - name: local-volume
+      persistentVolumeClaim:
+        claimName: local-volume-claim
